@@ -136,7 +136,13 @@ export const variant = ({ key, prop = 'variant' }) => {
 const spaceScale = [0, 4, 8, 16, 32, 64, 128, 256, 512]
 
 const getSpace = (n, scale) => {
-  if (!num(n)) return n
+  if (!num(n)) {
+    if (scale[n]) {
+      // Account for aliases
+      return scale[n];
+    }
+    return n;
+  }
   const isNegative = n < 0
   const absolute = Math.abs(n)
   const value = get(scale, absolute)
